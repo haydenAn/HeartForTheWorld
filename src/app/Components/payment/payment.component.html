@@ -1,0 +1,177 @@
+<div id="paymentField-flip">
+    <h3 id="paymentMethod-header" style="color: #c45500;">Choose payment method</h3>
+    <span id="selected-payment-method-wrapper">
+    <img id="selected-payment-img" src="" height="30px">
+    <strong id="selected-payment-method"></strong>
+    <span id="selected-payment-method-detail"></span>
+    </span>
+    <span>
+    <a style="display:none;" id="paymentField-change">Change</a>
+    <a id="paymentField-close" (click)="onUseThisPaymentClicked()">Confirm & Close &times;</a>
+    </span>
+</div>
+<div id="payment-method" [@slideUpDown]="paymentFieldState">
+    <div class="inline" id="paymentMethod-select">
+        <p>Would you like to make your payment with a credit or debit card?</p>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="CCDebit" (change)="onPaymentMethodChanged($event)" name="paymentMethod" [checked]="paymentMethodSelection.CCDebit" />
+            <label class="radio form-check-label">
+                Credit/Debit Card
+            </label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="paymentMethod" id="EFT"  (change)="onPaymentMethodChanged($event)" [checked]="paymentMethodSelection.EFT"  />
+                <label *ngIf="Partner.Country=='CA'"  class="radio form-check-label">
+                    PAD
+                </label>
+                <label *ngIf="Partner.Country!=='CA'"  class="radio form-check-label">
+                    Electronic Check (ACH)
+                </label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="paymentMethod" id="MailCheck"  (change)="onPaymentMethodChanged($event)" [checked]="paymentMethodSelection.MailCheck"  />
+            <label class="radio form-check-label" >
+                Mail
+            </label>
+        </div>
+    </div>
+    <div class="row" *ngIf="paymentMethodSelection.CCDebit">
+        <div class="form-group col-md-12">
+            <label for="cardholder-name">Name on Card</label>
+            <input autocomplete="off" type="text" class="form-control" id="cardholder-name" placeholder="Full Name" required>
+            <small class="text-muted">Full name as displayed on card</small>
+        </div>
+        <div class="form-group col-md-12">
+            <label for="card-number">Card Number</label>
+            <div class="input-group">
+                <input class="form-control mr-3" id="card-number" autocomplete="off" required>
+                <div id="card-logo" class="input-group-addon"><img src="https://files.readme.io/d1a25b4-generic-card.png" height="20px"></div>
+            </div>
+        </div>
+        <div class="form-group col-md-4 col-sm-12">
+            <label for="exp-date">Exp. Date</label>
+            <input class="form-control" autocomplete="off" id="exp-date" required>
+        </div>
+        <div class="form-group col-md-6 col-sm-12">
+            <label for="cvv">Security Code</label>
+            <input class="form-control col-md-8" autocomplete="off" id="cvv" required>
+        </div>
+    </div>
+
+    <!--payment fields for electronic Check-->
+    <div class="row" *ngIf="paymentMethodSelection.EFT">
+
+        <div class="form-group col-lg-10">
+            <label for="account-name">Account Name</label>
+            <input autocomplete="off" type="text" class="form-control" id="account-name" placeholder="Account Name" required>
+        </div>
+        <div class="form-group col-lg-10">
+            <label class="control-label">Routing Number(9 digits)</label>
+            <input autocomplete="off" class="form-control mr-3" name="routing" required>
+        </div>
+        <div class="form-group col-lg-10">
+            <label class="control-label">Confirm Routing Number</label>
+            <input autocomplete="off" class="form-control mr-3" name="confirmRouting" required>
+        </div>
+
+        <div class="form-group col-lg-10">
+            <label for="account-number">Account Number(3-17 digits)</label>
+            <input autocomplete="off" class="form-control mr-3" id="account-number" required>
+        </div>
+        <div class="form-group col-lg-10">
+            <label for="confirm-account-number">Confirm Account Number</label>
+            <input autocomplete="off" class="form-control mr-3" id="confirm-account-number" required>
+        </div>
+
+    </div>
+    <button class="btn btn-primary btn-lg col-xs-6 col-xs-offset-3 mt-3" type="button" (click)="onUseThisPaymentClicked()">Use this Payment Method</button>
+</div>
+<div class="row">
+    <div class="form-group col-xxl-8 col-sm-10 mb-3 mt-3" id="Payment_AutoGiving">
+        <div style="display: flex;">
+            <div class="inline">
+                <!-- L("Monthly recurring payments") --> AutoGiving &nbsp;
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="autoGiving" id="Pledge_AutoGiving1" checked="true" />
+                    <label class="radio form-check-label" for="Pledge_AutoGiving1">
+                        Yes
+                    </label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="autoGiving" id="Pledge_AutoGiving2" value="False" />
+                    <label class="radio form-check-label" for="Pledge_AutoGiving2">
+                        No
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group col-sm-12 mb-3" id="auto-draft-date">
+        <div style="display: flex;">
+            <div class="inline">
+                Process on the &nbsp;
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="autoDraftDate" id="Pledge_AutoDraftDate1" checked="5" />
+                    <label class="radio form-check-label" for="Pledge_AutoDraftDate1">
+                        5th
+                    </label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="autoDraftDate" id="Pledge_AutoDraftDate2" value="20" />
+                    <label class="radio form-check-label" for="Pledge_AutoDraftDate2">
+                        20th
+                    </label>
+                    <span class="ml-3 mr-1" style="display: none;">Other: </span>
+                    <select id="Pledge_AutoDraftDate" name="autoDraftDate" class="form-control" style="display: none;">
+                        <option value=""></option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
+                        <option value="24">24</option>
+                        <option value="25">25</option>
+                        <option value="26">26</option>
+                        <option value="27">27</option>
+                        <option value="28">28</option>
+                        <option value="29">29</option>
+                        <option value="30">30</option>
+                        <option value="31">31</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div id="PledgePaymentAmountSection" class="col-xxl-3 col-sm-6">
+        <div class="form-group m-0">
+            <label for="Pledge_Payment_Amount">Amount Today</label>
+            <input class="form-control m-input" id="Pledge_InitialPayment" type="number" min="0" name="initialPayment" />
+            <span id="PledgeAmountErrorText" style="display: none; color: red;">must be $5 or greater</span>
+        </div>
+
+    </div>
+
+</div>

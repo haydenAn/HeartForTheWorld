@@ -1,284 +1,138 @@
-<div class="row p-0s">
-        <div class="shows-gifts-wrapper col-sm-6 p-0">
+<div class="row p-0">
+    <div class="shows-gifts-wrapper col-sm-6">
 
         <div class="form-group col-sm-12 mb-3">
+            <!-- <button (click)="getSegmentDataList()"> test click</button> -->
             <label for="Pledge_Segment">Shows</label>
-            <select id="PledgeList" class="form-control" model="selected"
-                    change="" ></select>
-                <!-- <option value="">{{segment[0]}}</option> -->
+            <select id="PledgeList" class="form-control form-select" model="selected" #showList
+                (change)="onShowListSelectionChanged(showList.value)">
+                <option *ngFor="let item of ShowsList">{{item}}</option>
+            </select>
         </div>
         <div class="form-group col-sm-12 mb-3">
             <label for="gift_list">Gifts</label>
-            <div class="gift-list-wrapper p-2" id="Gift_List">
+            <div class="gift-list-wrapper p-2" id="Gift_List"
+                style="box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;">
                 <ul id="list_test" class="default-li-gifts ml-3">
-                    <!-- <li><span style="font-size: 16px;">&#8226; </span>{{ x.text }}</li> -->
+                    <li *ngFor="let item of Filtereditems"><span style="font-size: 16px;">&#8226; </span>{{
+                        item.itemName }}</li>
+                    <ng-container *ngIf="JFSelected">
+                        <li *ngFor="let item of JFTest">{{ item }}</li>
+                    </ng-container>
+                    <ng-container *ngIf="DPSelected">
+                        <li *ngFor="let item of DP">{{ item }}</li>
+                    </ng-container>
                 </ul>
             </div>
             <div class="form-group mb-3">
                 <label for="giftBtn">&nbsp;</label>
                 <div class="input-group">
-                    <a id="giftBtn" class="btn btn-primary" data-toggle="modal" data-target="#giftRequestModal">Gift Requests</a>
+                    <a id="giftBtn" class="btn btn-primary" data-toggle="modal" data-target="#giftRequestModal">Gift
+                        Requests</a>
                 </div>
             </div>
         </div>
-        </div>
-        <div class="checkbox-list form-group mb-8 col-sm-6">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="form-group">
-                        <label for="Pledge_Note">Pledge Notes</label>
-                        <textarea class="form-control" id="Pledge_Note" value="Pledge.Note" name="note" rows="3"></textarea>
-                    </div>
-                    <div style="display: flex; flex-direction:column; align-items:flex-start">
-                        <div class="inline mb-2">
-                            <label  for="Pledge_ReadOnAir" class="checkbox" style="display: flex; flex-direction:row-reverse;">
-                            
-                                    <input *ngIf="IsEditMode" id="Pledge_ReadOnAir" type="checkbox" name="readOnAir" value="true"/>
-                               
-                                    <input *ngIf="IsEditMode" id="Pledge_ReadOnAir" type="checkbox" name="readOnAir" value="true" checked="checked" />
-                    
-                                <span></span>
-                            </label>
-                        </div>
-                        <div class="inline mb-2">
-                            <label for="Pledge_ReceiveProduct" class="checkbox" style="display: flex; flex-direction:row-reverse;">
-                          
-                                    <input *ngIf="IsEditMode" id="Pledge_ReceiveProduct" type="checkbox" name="receiveProduct" value="true" /> 
-                             
-                                    <input *ngIf="IsEditMode" id="Pledge_ReceiveProduct" type="checkbox" name="receiveProduct" value="true" checked="checked" />
-                                <span></span>
-                            </label>
-                        </div>
-                        <div class="inline">
-                            <label for="IsraelPledge" class="checkbox" style="display: flex; flex-direction:row-reverse;">
-                              
-                                    <input *ngIf="IsEditMode" id="IsraelPledge" type="checkbox" name="IsraelPledge" value="true" />
-                             
-                                    <input *ngIf="IsEditMode" id="IsraelPledge" type="checkbox" name="IsraelPledge" value="true" />
-                                
-                                <span></span>
-                            </label>
+    </div>
+    <div class="checkbox-list form-group mb-8 col-sm-6">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label for="Pledge_Note">Pledge Notes</label>
+                    <textarea class="form-control" id="Pledge_Note" value="Pledge.Note" name="note" rows="3"></textarea>
+                </div>
+                <div style="display: flex; flex-direction:column; align-items:flex-start">
+                    <div class="inline mb-2">
+                        <label for="Pledge_ReadOnAir" class="checkbox"
+                            style="display: flex; flex-direction:row-reverse;">
 
-                        </div>
+                            <input *ngIf="IsEditMode" id="Pledge_ReadOnAir" type="checkbox" name="readOnAir"
+                                value="true" />
+
+                            <input *ngIf="IsEditMode" id="Pledge_ReadOnAir" type="checkbox" name="readOnAir"
+                                value="true" checked="checked" />
+
+                            <span></span>
+                        </label>
+                    </div>
+                    <div class="inline mb-2">
+                        <label for="Pledge_ReceiveProduct" class="checkbox"
+                            style="display: flex; flex-direction:row-reverse;">
+
+                            <input *ngIf="IsEditMode" id="Pledge_ReceiveProduct" type="checkbox" name="receiveProduct"
+                                value="true" />
+
+                            <input *ngIf="IsEditMode" id="Pledge_ReceiveProduct" type="checkbox" name="receiveProduct"
+                                value="true" checked="checked" />
+                            <span></span>
+                        </label>
+                    </div>
+                    <div class="inline">
+                        <label for="IsraelPledge" class="checkbox" style="display: flex; flex-direction:row-reverse;">
+
+                            <input *ngIf="IsEditMode" id="IsraelPledge" type="checkbox" name="IsraelPledge"
+                                value="true" />
+
+                            <input *ngIf="IsEditMode" id="IsraelPledge" type="checkbox" name="IsraelPledge"
+                                value="true" />
+
+                            <span></span>
+                        </label>
+
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 
-    <!---------------------------- PLEDGE INFORMATION --------------------->
-    <div class="row p-0">
-        <div class="from-group col-6 mb-3">
-            <label for="Pledge_Appeal_List">Pledge Appeal</label>
-            <select id="Pledge_Appeal_List" name="appealList" class="form-control"
-                  >
-                <option for="appeal in appeals"></option>
-            </select>
-        </div>
-        <div class="form-group col-4 mb-3">
-            <label for="Pledge_AmountPerPayment">Amount Per Payment</label>
-            <input class="form-control m-input" id="Pledge_AmountPerPayment" value="Pledge.AmountPerPayment" type="number" name="amountPerPayment"
-                  />
-        </div>
-        <div class="form-group col-6">
-            <label for="Pledge_Currency">Currency</label>
-            <select id="Pledge_Currency" name="currency" class="form-control" (change)="update_foreign_currency_textbox()">
-                <!-- @{string partnerDefaultCurrency = "";}
+</div>
+
+<!---------------------------- PLEDGE INFORMATION --------------------->
+<div class="row p-0">
+    <div class="from-group col-6 mb-3">
+        <label for="Pledge_Appeal_List">Pledge Appeal</label>
+        <select id="Pledge_Appeal_List" name="appealList" class="form-control">
+            <option for="appeal in appeals"></option>
+        </select>
+    </div>
+    <div class="form-group col-4 mb-3">
+        <label for="Pledge_AmountPerPayment">Amount Per Payment</label>
+        <input class="form-control m-input" id="Pledge_AmountPerPayment" value="Pledge.AmountPerPayment" type="number"
+            name="amountPerPayment" />
+    </div>
+    <div class="form-group col-6">
+        <label for="Pledge_Currency">Currency</label>
+        <select id="Pledge_Currency" name="currency" class="form-control" (change)="update_foreign_currency_textbox()">
+            <!-- @{string partnerDefaultCurrency = "";}
                 @foreach (var country in countries.Select(c => new { c.Country.CurrencyCode, c.Country.Currency }).Distinct().ToList())
                 { -->
-                    <!-- if (partnerCurrency == country.CurrencyCode.ToString())
+            <!-- if (partnerCurrency == country.CurrencyCode.ToString())
                     { -->
-                        <!-- <option value="@country.CurrencyCode" selected>@country.Currency</option> -->
-                        <!-- partnerDefaultCurrency = country.Currency;
+            <!-- <option value="@country.CurrencyCode" selected>@country.Currency</option> -->
+            <!-- partnerDefaultCurrency = country.Currency;
                     }
                     else
                     { -->
-                        <!-- <option value="@country.CurrencyCode">@country.Currency</option>
+            <!-- <option value="@country.CurrencyCode">@country.Currency</option>
                     }
                 } -->
-            </select>
-        </div>
-        <div class="form-group col-4">
-            <label for="Pledge_NumberOfPayments">Number Of Payments</label>
-            <input class="form-control m-input" id="Pledge_NumberOfPayments" value="Pledge.NumberOfPayments" type="number" name="numberOfPayments"
-               />
-        </div>
+            <option *ngFor="let item of countries">{{item.country.currency}}</option>
+        </select>
     </div>
-    <div class="row m-1 mt-5" id="pledge-total-wrapper" >
-        <div class="form-group col-12 mt-6">
-            <span class="font-size-h4" style="display: block; color:rgb(196, 85, 0)">
-                <strong>Today's pledge total: <span>{{total}} US Dollars</span></strong>
-            </span>
-                <span *ngIf="Partner.Country =='US'" id="foreign-currency-total" class="font-size-h4" style="display: none;">{{totalForeignCurrency}} <span id="foreign-currency-code"></span> ({{foreignPayment}} per month</span>
-                <span *ngIf="Partner.Country !=='US'" id="foreign-currency-total" class="font-size-h4">{{totalForeignCurrency}} <span id="foreign-currency-code"></span> ({{foreignPayment}} per month</span>
-        </div>
+    <div class="form-group col-4">
+        <label for="Pledge_NumberOfPayments">Number Of Payments</label>
+        <input class="form-control m-input" id="Pledge_NumberOfPayments" [value]="Pledge.NumberOfPayments" type="number"
+            name="numberOfPayments" />
     </div>
-
-    <div class="p-3"></div>
-
-    <div id="payment-method">
-        <div class="inline" id="paymentMethod-select">
-            <p>Would you like to make your payment with a credit or debit card?</p>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="paymentMethod" id="Pledge_CreditDebit" value="CreditDebit" />
-                <label class="radio form-check-label" for="Pledge_CreditDebit">
-                    Credit/Debit Card
-                </label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="paymentMethod" id="Pledge_ElectronicCheck" value="ElectronicCheck" />
-                    <label *ngIf="Partner.Country=='CA'" id="pledgeTabEFTLabel" class="radio form-check-label" for="Pledge_ElectronicCheck">
-                        PAD
-                    </label>
-                    <label *ngIf="Partner.Country!=='CA'" id="pledgeTabEFTLabel" class="radio form-check-label" for="Pledge_ElectronicCheck">
-                        Electronic Check (ACH)
-                    </label>
-            </div>
-            <div class="form-check form-check-inline" id="PayByCheck">
-                <input class="form-check-input" type="radio" name="paymentMethod" id="Pledge_Check" value="Check" />
-                <label class="radio form-check-label" for="Pledge_Check">
-                    Mail
-                </label>
-            </div>
-        </div>
-        <div class="row" id="paymentForm-CC">
-            <div class="form-group col-md-12">
-                <label for="cardholder-name">Name on Card</label>
-                <input autocomplete="off" type="text" class="form-control" id="cardholder-name" placeholder="Full Name" required>
-                <small class="text-muted">Full name as displayed on card</small>
-            </div>
-            <div class="form-group col-md-12">
-                <label for="card-number">Card Number</label>
-                <div class="input-group">
-                    <input class="form-control mr-3" id="card-number" autocomplete="off" required>
-                    <div id="card-logo" class="input-group-addon"><img src="https://files.readme.io/d1a25b4-generic-card.png" height="20px"></div>
-                </div>
-            </div>
-            <div class="form-group col-md-4 col-sm-12">
-                <label for="exp-date">Exp. Date</label>
-                <input class="form-control" autocomplete="off" id="exp-date" required>
-            </div>
-            <div class="form-group col-md-6 col-sm-12">
-                <label for="cvv">Security Code</label>
-                <input class="form-control col-md-8" autocomplete="off" id="cvv" required>
-            </div>
-        </div>
-
-        <!--payment fields for electronic Check-->
-        <div class="row" id="paymentForm-ECheck" style="display:none;">
-
-            <div class="form-group col-lg-10">
-                <label for="account-name">Account Name</label>
-                <input autocomplete="off" type="text" class="form-control" id="account-name" placeholder="Account Name" required>
-            </div>
-            <div class="form-group col-lg-10">
-                <label class="control-label">Routing Number(9 digits)</label>
-                <input autocomplete="off" class="form-control mr-3" name="routing" required>
-            </div>
-            <div class="form-group col-lg-10">
-                <label class="control-label">Confirm Routing Number</label>
-                <input autocomplete="off" class="form-control mr-3" name="confirmRouting" required>
-            </div>
-
-            <div class="form-group col-lg-10">
-                <label for="account-number">Account Number(3-17 digits)</label>
-                <input autocomplete="off" class="form-control mr-3" id="account-number" required>
-            </div>
-            <div class="form-group col-lg-10">
-                <label for="confirm-account-number">Confirm Account Number</label>
-                <input autocomplete="off" class="form-control mr-3" id="confirm-account-number" required>
-            </div>
-
-        </div>
-        <button class="btn btn-primary btn-lg col-xs-6 col-xs-offset-3" type="button" id="paymentField-submit">Use this Payment Method</button>
+</div>
+<div class="row m-1 mt-5" id="pledge-total-wrapper">
+    <div class="form-group col-12 mt-6">
+        <span class="font-size-h4" style="display: block; color:rgb(196, 85, 0)">
+            <strong>Today's pledge total: <span>{{total}} US Dollars</span></strong>
+        </span>
+        <!-- <span *ngIf="Partner.Country =='US'" id="foreign-currency-total" class="font-size-h4" style="display: none;">{{totalForeignCurrency}} <span id="foreign-currency-code"></span> ({{foreignPayment}} per month</span>
+                <span *ngIf="Partner.Country !=='US'" id="foreign-currency-total" class="font-size-h4">{{totalForeignCurrency}} <span id="foreign-currency-code"></span> ({{foreignPayment}} per month</span> -->
     </div>
-    <div class="row">
-        <div class="form-group col-xxl-8 col-sm-10 mb-3 mt-3" id="Payment_AutoGiving">
-            <div style="display: flex;">
-                <div class="inline">
-                    <!-- L("Monthly recurring payments") --> AutoGiving &nbsp;
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="autoGiving" id="Pledge_AutoGiving1" value="True" />
-                        <label class="radio form-check-label" for="Pledge_AutoGiving1">
-                            Yes
-                        </label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="autoGiving" id="Pledge_AutoGiving2" value="False" />
-                        <label class="radio form-check-label" for="Pledge_AutoGiving2">
-                            No
-                        </label>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="form-group col-sm-12 mb-3" id="auto-draft-date">
-            <div style="display: flex;">
-                <div class="inline">
-                    Process on the &nbsp;
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="autoDraftDate" id="Pledge_AutoDraftDate1" value="5" />
-                        <label class="radio form-check-label" for="Pledge_AutoDraftDate1">
-                            5th
-                        </label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="autoDraftDate" id="Pledge_AutoDraftDate2" value="20" />
-                        <label class="radio form-check-label" for="Pledge_AutoDraftDate2">
-                            20th
-                        </label>
-                        <span class="ml-3 mr-1" style="display: none;">Other: </span>
-                        <select id="Pledge_AutoDraftDate" name="autoDraftDate" class="form-control" style="display: none;">
-                            <option value=""></option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                            <option value="12">12</option>
-                            <option value="13">13</option>
-                            <option value="14">14</option>
-                            <option value="15">15</option>
-                            <option value="16">16</option>
-                            <option value="17">17</option>
-                            <option value="18">18</option>
-                            <option value="19">19</option>
-                            <option value="20">20</option>
-                            <option value="21">21</option>
-                            <option value="22">22</option>
-                            <option value="23">23</option>
-                            <option value="24">24</option>
-                            <option value="25">25</option>
-                            <option value="26">26</option>
-                            <option value="27">27</option>
-                            <option value="28">28</option>
-                            <option value="29">29</option>
-                            <option value="30">30</option>
-                            <option value="31">31</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div id="PledgePaymentAmountSection" class="col-xxl-3 col-sm-6">
-            <div class="form-group m-0">
-                <label for="Pledge_Payment_Amount">@L("AmountToday") (US Dollars)</label>
-                <input class="form-control m-input" id="Pledge_InitialPayment" type="number" min="0" name="initialPayment" />
-                <span id="PledgeAmountErrorText" style="display: none; color: red;">must be $5 or greater</span>
-            </div>
+</div>
 
-        </div>
-
-    </div>
+<div class="p-3"></div>
+<app-payment></app-payment>

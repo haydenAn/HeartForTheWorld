@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { CountriesServiceService } from 'src/app/Services/countries-service.service';
-
+import { countriesList } from 'src/app/Data/countries';
+import { watchingOnList } from 'src/app/Data/watchingOn';
 @Component({
   selector: 'app-account',
   templateUrl: './account.component.html',
@@ -23,7 +24,7 @@ export class AccountComponent implements OnInit {
     City : "",
     State : "",
     Zip : "",
-    Country:"",
+    Country:"United States",
     Address1:"",
     Address2:"",
     Address3:"",
@@ -43,10 +44,10 @@ export class AccountComponent implements OnInit {
       MinPhoneLength: 10
     }
   }
-
+   countriesList = countriesList;
+   watchingOnList = watchingOnList;
   constructor(private cService : CountriesServiceService) { }
   ngOnInit(): void {
-    debugger;
     this.cService.getAllCountryInfoList()
     .subscribe((data : any)=>{
       console.log(data);
@@ -61,6 +62,10 @@ export class AccountComponent implements OnInit {
      }else{
        this.Partner.IsIndividual = false;
      }
+  }
+
+  onCountrySelectionChanged(country : string){
+     this.Partner.Country = country;
   }
 
 }

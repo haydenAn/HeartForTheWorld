@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
+import { SegmentServiceService } from 'src/app/Services/segment-service.service';
+import { itemGroupitems } from 'src/app/Data/itemgroup';
+import { countriesList } from 'src/app/Data/countries';
 @Component({
   selector: 'app-pledge',
   templateUrl: './pledge.component.html',
@@ -47,16 +49,50 @@ export class PledgeComponent implements OnInit {
   Pledge = {
     Note : "",
     AmountPerPayment : "13",
-
-
+    NumberOfPayments : 1
   }
-  segment= ["firstSegment","second-segment"];
+  ShowsList= [
+    "Dave Roever", "Dwight Pate","General 2021","George Bloomer","Israel","Jentezen Franklin","Jesse Duplantis","Jimmy Evans","Joel Osteen","John and Matt Hagee","John Hagee","Jonathan Cahn","Lance Wallnau","Larry Huch","One Time Donation/Tithe","Perry Stone","Robert Morris"
+  ];
+  JFTest = [
+    "Hebrew Home Blessing Artwork","No Fear CD","Covenant Partner of Israel","The Blessing Blanket","Daystar Gala Invitation Packet"
+  ]
+  DP = [
+    "Anointing Oil","Daystar Gala Invitation Packet","The Blessing Blanket"
+  ]
+  JFSelected = false;
+  DPSelected = false;
+  Filtereditems = [];
+  countries = countriesList;
 
-  constructor() { }
+
+
+  constructor(private segService : SegmentServiceService) { }
 
   ngOnInit(): void {
   }
   update_foreign_currency_textbox(){
-
   }
+  getSegmentDataList(){
+    this.segService.getSegmentDataList().subscribe(x=>{
+      console.log(x)
+    })
+  }
+  onShowListSelectionChanged(showName){
+    if(showName == "Jentezen Franklin"){
+      this.JFSelected = true;
+      this.DPSelected = false;
+    }
+    else if(showName =="Dwight Pate"){
+      this.DPSelected = true;
+      this.JFSelected = false;
+    }
+    else{
+      this.JFSelected = false;
+      this.DPSelected = false;
+    }
+  }
+
 }
+
+

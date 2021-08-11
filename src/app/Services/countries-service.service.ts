@@ -17,7 +17,6 @@ export class CountriesServiceService {
       .get<any>(url, { observe: "response"})
       .pipe(
         map((response) => {
-          debugger;
           localStorage.setItem('CountyList', "true");  
           console.log(response);
         })

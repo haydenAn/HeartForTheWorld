@@ -1,0 +1,74 @@
+
+#paymentMethod-header{
+	font-weight:400 !important;
+	padding-left:1.5rem !important;
+}
+
+
+#paymentField-flip {
+	display: flex !important;
+	padding: 1rem !important;
+	padding-left: 0 !important;
+/*	background-color: whitesmoke !important;
+*/	justify-content: space-between !important;
+border-radius: 2px;
+box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px; 
+}
+	#paymentField-flip span a {
+		cursor: pointer ;
+		padding: 10px ;
+		color: rgb(196, 85, 0);
+	}
+
+
+#paymentMethod-select{
+	margin-bottom:1rem;
+
+}
+
+#payment-method {
+	box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+	padding : 1rem 1.75rem 2rem;
+}
+
+
+#Gift_List {
+	min-height: 3rem !important;
+}
+
+#page-header-custom {
+	font-weight: bold !important;
+	background-color: rgba(235,237,243,0.3) !important;
+}
+#pledge-total-wrapper {
+	margin-top:1.5rem;
+	border-radius: 5px;
+	box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+	background-color: rgba(235,237,243,0.3) !important;
+}
+
+/* 
+@media only screen and (max-width: 550px) {
+	#vueApp {
+		padding: 1rem;
+	}
+} */
+
+/*custom header for some reason assigning class won't work*/
+/* #section-header-paymentInfo-custom {
+	padding: 1rem !important;
+	background-color: rgba(235,237,243,0.5) !important;
+}
+
+#section-header-pledgeInfo-custom {
+	padding: 1rem !important;
+	background-color: rgba(235,237,243,0.5) !important;
+}
+
+#section-header-segmentInfo-custom {
+	padding: 1rem !important;
+	background-color: rgba(235,237,243,0.5) !important;
+} */
+
+
+/*test check in - hayden*/

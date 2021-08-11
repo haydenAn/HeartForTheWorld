@@ -5,12 +5,13 @@
         <div class="col-sm-auto mb-3">
             <div class="form-check" style="display: flex; flex-direction: column;">
                 <input class="form-check-input" type="radio" name="partnerType" id="individual"
-                    [checked]="Partner.IsIndividual" (change)="onPartnerTypeChanged($event)"/>
-                <label class="radio form-check-label mb-3" for="individual">
+                    [checked]="Partner.IsIndividual" (change)="onPartnerTypeChanged($event)" />
+                <label class="radio form-check-label mb-3" for="individual" style="position: absolute;">
                     Individual
                 </label>
                 <input class="form-check-input" type="radio" name="partnerType" id="company"
-                    [checked]="!Partner.IsIndividual" (change)="onPartnerTypeChanged($event)" />
+                    [checked]="!Partner.IsIndividual" (change)="onPartnerTypeChanged($event)"
+                    style="position:relative; top:1.25rem" />
                 <label class="radio form-check-label" for="company">
                     Company
                 </label>
@@ -19,7 +20,7 @@
 
         <div class="row col-sm-10 mb-3">
             <!-- show this row if it's an Individual -->
-            <div *ngIf="Partner.IsIndividual" id="individual-row1" class="col-sm-6">
+            <div *ngIf="Partner.IsIndividual" id="individual-row1" class="col-sm-7">
                 <div class="col-12">
                     <div class="row">
                         <div class="form-group col-6 mb-3">
@@ -93,8 +94,6 @@
                 </div>
             </div>
 
-
-
             <!-- show this row if it's a Company -->
             <div *ngIf="!Partner.IsIndividual" id="company-row1" class="col-md-8">
                 <div class="form-group mb-3">
@@ -105,7 +104,7 @@
                 </div>
             </div>
 
-            <div class="col-sm-6">
+            <div class="col-sm-5">
                 <div>
                     <div class="form-group mb-3">
                         <label for="Partner_Comments">Comments</label>
@@ -118,7 +117,7 @@
                         <label for="Partner_ReceiveProduct" class="checkbox">
                             <input id="Partner_ReceiveProduct" type="checkbox" name="receiveProduct"
                                 [checked]="Partner.ReceiveProduct" />
-                             ReceiveProduct
+                            ReceiveProduct
                             <span></span>
                         </label>
                     </div>
@@ -126,7 +125,7 @@
                         <label for="Partner_DoNotContact" class="checkbox">
                             <input id="Partner_DoNotContact" type="checkbox" name="doNotContact"
                                 [checked]="Partner.DoNotContact" />
-                             DoNotContact
+                            DoNotContact
                             <span></span>
                         </label>
                     </div>
@@ -134,7 +133,7 @@
                         <label for="Partner_DoNotMerge" class="checkbox">
                             <input id="Partner_DoNotMerge" type="checkbox" name="doNotMerge"
                                 [checked]="Partner.DoNotMerge" />
-                             DoNotMerge
+                            DoNotMerge
                             <span></span>
                         </label>
                     </div>
@@ -193,13 +192,13 @@
             </div>
         </div>
         <div class="row">
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-6 mb-3">
                 <label for="Partner_Country">Country</label>
                 <div class="input-group">
-                    <select asp-for="Partner.Country" class="custom-select" id="Partner_Country" name="country"
-                        onchange="getWaysToWatch();">
+                    <select class="custom-select form-select" id="Partner_Country" name="country" #countrySelected
+                        (change)="onCountrySelectionChanged(countrySelected.value)">
+                        <option *ngFor="let item of countriesList">{{item.country.name}}</option>
                     </select>
-                    <!-- asp-items="@(new SelectList(countryOptions, "Country.Code", "Country.Name)" -->
                 </div>
             </div>
         </div>
@@ -213,24 +212,25 @@
                 <input class="form-control" id="Partner_Address2" [value]="Partner.Address2" type="text" name="address2"
                     maxlength="Partner.PartnerConsts.MaxAddress2Length"
                     minlength="Partner.PartnerConsts.MinAddress2Length" />
-                <label for="Partner_Address3">Address3</label>
-                <input class="form-control" id="Partner_Address3" [value]="Partner.Address3" type="text" name="address3"
-                    maxlength="Partner.PartnerConsts.MaxAddress3Length"
-                    minlength="Partner.PartnerConsts.MinAddress3Length" />
-                <label for="Partner_Address4">Address4</label>
-                <input class="form-control" id="Partner_Address4" [value]="Partner.Address4" type="text" name="address4"
-                    maxlength="Partner.PartnerConsts.MaxAddress4Length"
-                    minlength="Partner.PartnerConsts.MinAddress4Length" />
+                <div *ngIf="Partner.Country !== 'United States'">
+                    <label for="Partner_Address3">Address3</label>
+                    <input class="form-control" id="Partner_Address3" [value]="Partner.Address3" type="text"
+                        name="address3" maxlength="Partner.PartnerConsts.MaxAddress3Length"
+                        minlength="Partner.PartnerConsts.MinAddress3Length" />
+                    <label for="Partner_Address4">Address4</label>
+                    <input class="form-control" id="Partner_Address4" [value]="Partner.Address4" type="text"
+                        name="address4" maxlength="Partner.PartnerConsts.MaxAddress4Length"
+                        minlength="Partner.PartnerConsts.MinAddress4Length" />
+                </div>
             </div>
         </div>
         <div class="row">
             <div class="form-group col-md-6 mb-3">
                 <label class="watchingOn" for="Partner_WatchingOn">WatchingOn <span style="color: red;">*</span></label>
                 <div class="input-group countryResults">
-                    <select asp-for="Partner.WatchingOn" class="custom-select" id="Partner_WatchingOn"
-                        name="watchingOn">
+                    <select class="custom-select form-select" id="Partner_WatchingOn" name="watchingOn">
                         <option value="">Select one...</option>
-                        <!-- asp-items="@(new SelectList(watchingOptions, "WatchingOption.InternalId", "WatchingOption.Description)" -->
+                        <option *ngFor="let item of watchingOnList">{{item.watchingOption.description}}</option>
                     </select>
                 </div>
             </div>
