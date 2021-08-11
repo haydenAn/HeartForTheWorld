@@ -1,4 +1,4 @@
-<div class="row p-0 col-xl-10 col-xxl-8 mb-10">
+<div class="row p-0s">
         <div class="shows-gifts-wrapper col-sm-6 p-0">
 
         <div class="form-group col-sm-12 mb-3">
@@ -68,20 +68,20 @@
     </div>
 
     <!---------------------------- PLEDGE INFORMATION --------------------->
-    <div class="row p-0 col-xl-10 col-xxl-8">
-        <div class="from-group col-md-3 mb-5">
-            <label for="Pledge_Appeal_List">PledgeAppeal</label>
+    <div class="row p-0">
+        <div class="from-group col-6 mb-3">
+            <label for="Pledge_Appeal_List">Pledge Appeal</label>
             <select id="Pledge_Appeal_List" name="appealList" class="form-control"
                   >
                 <option for="appeal in appeals"></option>
             </select>
         </div>
-        <div class="form-group col-md-2 mb-5">
-            <label for="Pledge_AmountPerPayment">AmountPerPayment (USD)</label>
+        <div class="form-group col-4 mb-3">
+            <label for="Pledge_AmountPerPayment">Amount Per Payment</label>
             <input class="form-control m-input" id="Pledge_AmountPerPayment" value="Pledge.AmountPerPayment" type="number" name="amountPerPayment"
                   />
         </div>
-        <div class="form-group col-md-4 mb-5">
+        <div class="form-group col-6">
             <label for="Pledge_Currency">Currency</label>
             <select id="Pledge_Currency" name="currency" class="form-control" (change)="update_foreign_currency_textbox()">
                 <!-- @{string partnerDefaultCurrency = "";}
@@ -99,13 +99,13 @@
                 } -->
             </select>
         </div>
-        <div class="form-group col-md-2 mb-5">
-            <label for="Pledge_NumberOfPayments">NumberOfPayments</label>
+        <div class="form-group col-4">
+            <label for="Pledge_NumberOfPayments">Number Of Payments</label>
             <input class="form-control m-input" id="Pledge_NumberOfPayments" value="Pledge.NumberOfPayments" type="number" name="numberOfPayments"
                />
         </div>
     </div>
-    <div class="row m-1" id="pledge-total-wrapper" >
+    <div class="row m-1 mt-5" id="pledge-total-wrapper" >
         <div class="form-group col-12 mt-6">
             <span class="font-size-h4" style="display: block; color:rgb(196, 85, 0)">
                 <strong>Today's pledge total: <span>{{total}} US Dollars</span></strong>
@@ -192,4 +192,93 @@
 
         </div>
         <button class="btn btn-primary btn-lg col-xs-6 col-xs-offset-3" type="button" id="paymentField-submit">Use this Payment Method</button>
+    </div>
+    <div class="row">
+        <div class="form-group col-xxl-8 col-sm-10 mb-3 mt-3" id="Payment_AutoGiving">
+            <div style="display: flex;">
+                <div class="inline">
+                    <!-- L("Monthly recurring payments") --> AutoGiving &nbsp;
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="autoGiving" id="Pledge_AutoGiving1" value="True" />
+                        <label class="radio form-check-label" for="Pledge_AutoGiving1">
+                            Yes
+                        </label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="autoGiving" id="Pledge_AutoGiving2" value="False" />
+                        <label class="radio form-check-label" for="Pledge_AutoGiving2">
+                            No
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-12 mb-3" id="auto-draft-date">
+            <div style="display: flex;">
+                <div class="inline">
+                    Process on the &nbsp;
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="autoDraftDate" id="Pledge_AutoDraftDate1" value="5" />
+                        <label class="radio form-check-label" for="Pledge_AutoDraftDate1">
+                            5th
+                        </label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="autoDraftDate" id="Pledge_AutoDraftDate2" value="20" />
+                        <label class="radio form-check-label" for="Pledge_AutoDraftDate2">
+                            20th
+                        </label>
+                        <span class="ml-3 mr-1" style="display: none;">Other: </span>
+                        <select id="Pledge_AutoDraftDate" name="autoDraftDate" class="form-control" style="display: none;">
+                            <option value=""></option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                            <option value="18">18</option>
+                            <option value="19">19</option>
+                            <option value="20">20</option>
+                            <option value="21">21</option>
+                            <option value="22">22</option>
+                            <option value="23">23</option>
+                            <option value="24">24</option>
+                            <option value="25">25</option>
+                            <option value="26">26</option>
+                            <option value="27">27</option>
+                            <option value="28">28</option>
+                            <option value="29">29</option>
+                            <option value="30">30</option>
+                            <option value="31">31</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div id="PledgePaymentAmountSection" class="col-xxl-3 col-sm-6">
+            <div class="form-group m-0">
+                <label for="Pledge_Payment_Amount">@L("AmountToday") (US Dollars)</label>
+                <input class="form-control m-input" id="Pledge_InitialPayment" type="number" min="0" name="initialPayment" />
+                <span id="PledgeAmountErrorText" style="display: none; color: red;">must be $5 or greater</span>
+            </div>
+
+        </div>
+
     </div>

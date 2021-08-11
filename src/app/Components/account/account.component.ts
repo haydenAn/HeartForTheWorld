@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { CountriesServiceService } from 'src/app/Services/countries-service.service';
 
 @Component({
   selector: 'app-account',
@@ -42,9 +44,23 @@ export class AccountComponent implements OnInit {
     }
   }
 
-  constructor() { }
-
+  constructor(private cService : CountriesServiceService) { }
   ngOnInit(): void {
+    debugger;
+    this.cService.getAllCountryInfoList()
+    .subscribe((data : any)=>{
+      console.log(data);
+    })
+  }
+
+  onPartnerTypeChanged(e : any){
+     const Individual = "individual".toUpperCase()
+     let selectedElId = e.target.id.toUpperCase();
+     if(selectedElId == Individual){
+       this.Partner.IsIndividual = true;
+     }else{
+       this.Partner.IsIndividual = false;
+     }
   }
 
 }

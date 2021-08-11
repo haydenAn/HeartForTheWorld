@@ -1,204 +1,245 @@
-		<!------------------------PRIMARY INFORMATION ------------------->
-        <div id="primary-information">
-            <!-- <div class="card-title border-bottom"><h3 style="padding: 1rem;background-color: rgba(235,237,243,0.5);">Primary Information</h3></div> -->
-            <div class="row col-xl-10 col-xxl-8">
-                <div class="col-sm-auto mb-3">
-                    <div class="form-check" style="display: flex; flex-direction: column;">
-                        <input class="form-check-input" type="radio" name="isPerson" id="Partner_IsPerson1" [checked]="Partner.IsIndividual" />
-                        <label class="radio form-check-label mb-3" for="Partner_IsPerson1">
-                            Individual
-                        </label>
-                        <input class="form-check-input" type="radio" name="isPerson" id="Partner_IsPerson2" [checked]="!Partner.IsIndividual"  />
-                        <label class="radio form-check-label" for="Partner_IsPerson2">
-                            Company
-                        </label>
-                    </div>
-                </div>
-
-                <div class="row col-sm-10 mb-3">
-                    <!-- show this row if it's an Individual -->
-                    <div *ngIf="Partner.IsIndividual" id="individual-row1" class="col-sm-6">
-                        <div class="col-12">
-                            <div class="row">
-                                    <div class="form-group mb-3">
-                                        <label class="firstname" for="Partner_FirstName">FirstName <span style="color: red;">*</span></label>
-                                        <input id="Partner_FirstName" class="form-control text-capitalize" [value]="Partner.FirstName" type="text" name="firstName"maxlength="Partner.PartnerConsts.MaxFirstNameLength" minlength="Partner.PartnerConsts.MinFirstNameLength" />
-                                    </div>
-                                    <div class="form-group mb-3">
-                                        <label for="Partner_MiddleName">Middle</label>
-                                        <input id="Partner_MiddleName" class="form-control text-capitalize" [value]="Partner.MiddleName" type="text" name="middleName" maxlength="Partner.PartnerConsts.MaxLastNameLength" minlength="Partner.PartnerConsts.MinLastNameLength" />
-                                    </div>
-                                    <div class="form-group mb-3">
-                                        <label class="lastname" for="Partner_LastName">LastName <span style="color: red;">*</span></label>
-                                        <input id="Partner_LastName" class="form-control text-capitalize" [value]="Partner.LastName" type="text" name="lastName" maxlength="Partner.PartnerConsts.MaxLastNameLength" minlength="Partner.PartnerConsts.MinLastNameLength" />
-                                    </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="form-group col-5 p-0 mb-3">
-                                    <label for="Partner_SpouseFirst">Spouse first name</label>
-                                    <input id="Partner_SpouseFirst" class="form-control text-capitalize" [value]="Partner.SpouseFirst" type="text" name="spouseFirst" />
-                                </div>
-                                <div class="form-group col-7 mb-3">
-                                    <label for="Partner_SpouseLast">Spouse last name</label>
-                                    <input id="Partner_SpouseLast" class="form-control text-capitalize" [value]="Partner.SpouseLast" type="text" name="spouseLast" />
-                                </div>
-                            </div>
-                            <div class="row">
-                                   <div *ngIf="!!!(Partner.AltContactFirst) && !!!(Partner.AltContactLast)" >
-
-                                    <div id="AddAltContact" class="">
-                                        <button id="AddAltContactBtn" class="btn btn-secondary mt-3 mb-3"><i class="fa fa-plus"></i>Alt Contact</button>
-                                    </div>
-                                    <div id="AltContactFirst" class="form-group mb-3" style="display: none;">
-                                        <label for="Partner_AltContactFirst">Alt first name</label>
-                                        <input id="Partner_AltContactFirst" class="form-control text-capitalize" [value]="Partner.AltContactFirst" type="text" name="altContactFirst" />
-                                    </div>
-                                    <div id="AltContactLast" class="form-group mb-3" style="display: none;">
-                                        <label for="Partner_AltContactLast">Alt last name</label>
-                                        <input id="Partner_AltContactLast" class="form-control text-capitalize" [value]="Partner.AltContactLast" type="text" name="altContactLast" />
-                                    </div>
-                                </div>
-
-<div *ngIf="!!(Partner.AltContactFirst) || !!(Partner.AltContactLast)" >
-                                    <div class="form-group mb-3">
-                                        <label for="Partner_AltContactFirst">Alt first name</label>
-                                        <input id="Partner_AltContactFirst" class="form-control text-capitalize" [value]="Partner.AltContactFirst" type="text" name="altContactFirst" />
-                                    </div>
-                                    <div class="form-group mb-3">
-                                        <label for="Partner_AltContactLast">Alt last name</label>
-                                        <input id="Partner_AltContactLast" class="form-control text-capitalize" [value]="Partner.AltContactLast" type="text" name="altContactLast" />
-                                    </div>
-                                    </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-                    <!-- show this row if it's a Company -->
-                    <div *ngIf="!Partner.IsIndividual" id="company-row1" class="col-md-8">
-                        <div class="form-group mb-3">
-                            <label for="Partner_CompanyName">CompanyName <span style="color: red;">*</span></label>
-                            <input id="Partner_CompanyName" class="form-control" [value]="Partner.CompanyName" type="text" name="companyName" maxlength="Partner.PartnerConsts.MaxCompanyNameLength" minlength="Partner.PartnerConsts.MinCompanyNameLength" />
-                        </div>
-                    </div>
-
-                    <div class="col-sm-6">
-                    <div>
-                        <div class="form-group mb-3">
-                            <label for="Partner_Comments">Comments</label>
-                            <textarea id="Partner_Comments" class="form-control" name="comments" rows="3">{{Partner.Comments}}</textarea>
-                        </div>
-                    </div>
-                    <div class="row" style="flex-direction:column; align-items:flex-start;">
-                        <div class="checkbox-list mb-2">
-                                <label for="Partner_ReceiveProduct" class="checkbox" style="display: flex; flex-direction:row-reverse;">
-                                    <input id="Partner_ReceiveProduct" type="checkbox" name="receiveProduct" [checked]="Partner.ReceiveProduct"/>
-                                    ReceiveProduct
-                                    <span></span>
-                                </label>
-                        </div>
-                        <div class="checkbox-list mb-2">
-                                <label for="Partner_DoNotContact" class="checkbox" style="display: flex; flex-direction:row-reverse;">
-                                    <input id="Partner_DoNotContact" type="checkbox" name="doNotContact" [checked]="Partner.DoNotContact"/>
-                                    DoNotContact
-                                    <span></span>
-                                </label>
-                        </div>
-                        <div class="checkbox-list mb-2">
-                                <label for="Partner_DoNotMerge" class="checkbox" style="display: flex; flex-direction:row-reverse;">
-                                    <input id="Partner_DoNotMerge" type="checkbox" name="doNotMerge" [checked]="Partner.DoNotMerge" />
-                                    DoNotMerge
-                                    <span></span>
-                                </label>
-                        </div>
-                        <div id="individual-deceased-chkbox" class="checkbox-list">
-                                <label for="Partner_Deceased" class="checkbox" style="display: flex; flex-direction:row-reverse">
-                                    <input id="Partner_Deceased" type="checkbox" name="deceased" [checked]="Partner.Deceased" />
-                                    Deceased
-                                    <span></span>
-                                </label>
-                        </div>
-                    </div>
-                    </div>
-                </div>
+<!------------------------PRIMARY INFORMATION ------------------->
+<div id="primary-information">
+    <!-- <div class="card-title border-bottom"><h3 style="padding: 1rem;background-color: rgba(235,237,243,0.5);">Primary Information</h3></div> -->
+    <div class="row">
+        <div class="col-sm-auto mb-3">
+            <div class="form-check" style="display: flex; flex-direction: column;">
+                <input class="form-check-input" type="radio" name="partnerType" id="individual"
+                    [checked]="Partner.IsIndividual" (change)="onPartnerTypeChanged($event)"/>
+                <label class="radio form-check-label mb-3" for="individual">
+                    Individual
+                </label>
+                <input class="form-check-input" type="radio" name="partnerType" id="company"
+                    [checked]="!Partner.IsIndividual" (change)="onPartnerTypeChanged($event)" />
+                <label class="radio form-check-label" for="company">
+                    Company
+                </label>
             </div>
         </div>
 
-            <!----------------------- CONTACT INFORMATION ------------------->
-        <div id="contact-information">
-            <!-- <div class="card-title border-bottom mt-6"><h3 style="padding: 1rem;background-color: rgba(235,237,243,0.5);">Contact Information</h3></div> -->
-            <div class="col-xl-10 col-xxl-8">
-                <div class="row mb-3">
-                    <div class="form-group mb-0 col-md-4">
-                        <label for="Partner_Phone">Phone</label>
-                        <input class="form-control" id="Partner_Phone" [value]="Partner.Phone" type="text" name="phone" maxlength="Partner.PartnerConsts.MaxPhoneLength" minlength="Partner.PartnerConsts.MinPhoneLength" />
-                    </div>
-                    <div class="form-group mb-0 col-md-4">
-                        <label for="Partner_AltPhone">AltPhone</label>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="form-group mb-0 col-md-8">
-                        <label for="Partner_Email">Email</label>
-                        <input class="form-control" id="Partner_Email" [value]="Partner.Email" type="text" name="email" maxlength="Partner.PartnerConsts.MaxEmailLength" minlength="Partner.PartnerConsts.MinEmailLength" pattern="^$|Partner.PartnerConsts.EmailRegex" />
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="form-group mb-0 col-md-4">
-                        <label for="Partner_City">City</label>
-                        <input class="form-control" id="Partner_City" [value]="Partner.City" type="text" name="city" maxlength="Partner.PartnerConsts.MaxCityLength" minlength="Partner.PartnerConsts.MinCityLength" />
-                    </div>
-                    <div class="form-group mb-0 col-md-3">
-                        <label for="Partner_State">State</label>
-                        <input class="form-control" id="Partner_State" [value]="Partner.State" type="text" name="state" maxlength="Partner.PartnerConsts.MaxStateLength" minlength="Partner.PartnerConsts.MinStateLength" />
-                    </div>
-                    <div class="form-group mb-0 col-md-2">
-                        <label for="Partner_Zip">Zip</label>
-                        <input id="Partner_Zip" class="form-control" [value]="Partner.Zip" type="text" name="zip" maxlength="Partner.PartnerConsts.MaxZipLength" minlength="Partner.PartnerConsts.MinZipLength" />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group col-md-6">
-                        <label for="Partner_Country">Country</label>
-                        <div class="input-group">
-                            <select asp-for="Partner.Country" class="custom-select" id="Partner_Country" name="country"
-                            onchange="getWaysToWatch();">
-                        </select>
-                        <!-- asp-items="@(new SelectList(countryOptions, "Country.Code", "Country.Name)" -->
+        <div class="row col-sm-10 mb-3">
+            <!-- show this row if it's an Individual -->
+            <div *ngIf="Partner.IsIndividual" id="individual-row1" class="col-sm-6">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="form-group col-6 mb-3">
+                            <label class="firstname" for="Partner_FirstName">FirstName <span
+                                    style="color: red;">*</span></label>
+                            <input id="Partner_FirstName" class="form-control text-capitalize"
+                                [value]="Partner.FirstName" type="text" name="firstName"
+                                maxlength="Partner.PartnerConsts.MaxFirstNameLength"
+                                minlength="Partner.PartnerConsts.MinFirstNameLength" />
+                        </div>
+                        <div class="form-group col-6 mb-3">
+                            <label for="Partner_MiddleName">Middle</label>
+                            <input id="Partner_MiddleName" class="form-control text-capitalize"
+                                [value]="Partner.MiddleName" type="text" name="middleName"
+                                maxlength="Partner.PartnerConsts.MaxLastNameLength"
+                                minlength="Partner.PartnerConsts.MinLastNameLength" />
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="lastname" for="Partner_LastName">LastName <span
+                                    style="color: red;">*</span></label>
+                            <input id="Partner_LastName" class="form-control text-capitalize" [value]="Partner.LastName"
+                                type="text" name="lastName" maxlength="Partner.PartnerConsts.MaxLastNameLength"
+                                minlength="Partner.PartnerConsts.MinLastNameLength" />
                         </div>
                     </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="form-group col-md-6 mb-3">
-                        <label for="Partner_Address1">Address1</label>
-                        <input class="form-control" id="Partner_Address1" [value]="Partner.Address1" type="text" name="address1" maxlength="Partner.PartnerConsts.MaxAddress1Length" minlength="Partner.PartnerConsts.MinAddress1Length" />
-                        <label for="Partner_Address2">Address2</label>
-                        <input class="form-control" id="Partner_Address2" [value]="Partner.Address2" type="text" name="address2" maxlength="Partner.PartnerConsts.MaxAddress2Length" minlength="Partner.PartnerConsts.MinAddress2Length" />
-                        <label for="Partner_Address3">Address3</label>
-                        <input class="form-control" id="Partner_Address3" [value]="Partner.Address3" type="text" name="address3" maxlength="Partner.PartnerConsts.MaxAddress3Length" minlength="Partner.PartnerConsts.MinAddress3Length" />
-                        <label for="Partner_Address4">Address4</label>
-                        <input class="form-control" id="Partner_Address4" [value]="Partner.Address4" type="text" name="address4" maxlength="Partner.PartnerConsts.MaxAddress4Length" minlength="Partner.PartnerConsts.MinAddress4Length" />
+
+                    <div class="row">
+                        <div class="form-group col-5 p-0 mb-3">
+                            <label for="Partner_SpouseFirst">Spouse first name</label>
+                            <input id="Partner_SpouseFirst" class="form-control text-capitalize"
+                                [value]="Partner.SpouseFirst" type="text" name="spouseFirst" />
+                        </div>
+                        <div class="form-group col-7 mb-3">
+                            <label for="Partner_SpouseLast">Spouse last name</label>
+                            <input id="Partner_SpouseLast" class="form-control text-capitalize"
+                                [value]="Partner.SpouseLast" type="text" name="spouseLast" />
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="form-group col-md-6 mb-3">
-                        <label class="watchingOn" for="Partner_WatchingOn">WatchingOn <span style="color: red;">*</span></label>
-                        <div class="input-group countryResults">
-                            <select asp-for="Partner.WatchingOn" class="custom-select" id="Partner_WatchingOn" name="watchingOn"
-                            >
-                            <option value="">Select one...</option>
-                            <!-- asp-items="@(new SelectList(watchingOptions, "WatchingOption.InternalId", "WatchingOption.Description)" -->
-                            </select>
+                    <div class="row">
+                        <!-- <div *ngIf="!!!(Partner.AltContactFirst) && !!!(Partner.AltContactLast)">
+
+                            <div id="AddAltContact" class="">
+                                <button id="AddAltContactBtn" class="btn btn-secondary mt-3 mb-3"><i
+                                        class="fa fa-plus"></i>Alt Contact</button>
+                            </div>
+                            <div id="AltContactFirst" class="form-group mb-3" style="display: none;">
+                                <label for="Partner_AltContactFirst">Alt first name</label>
+                                <input id="Partner_AltContactFirst" class="form-control text-capitalize"
+                                    [value]="Partner.AltContactFirst" type="text" name="altContactFirst" />
+                            </div>
+                            <div id="AltContactLast" class="form-group mb-3" style="display: none;">
+                                <label for="Partner_AltContactLast">Alt last name</label>
+                                <input id="Partner_AltContactLast" class="form-control text-capitalize"
+                                    [value]="Partner.AltContactLast" type="text" name="altContactLast" />
+                            </div>
+                        </div> -->
+
+                        <div *ngIf="!!(Partner.AltContactFirst) || !!(Partner.AltContactLast)">
+                            <div class="form-group mb-3">
+                                <label for="Partner_AltContactFirst">Alt first name</label>
+                                <input id="Partner_AltContactFirst" class="form-control text-capitalize"
+                                    [value]="Partner.AltContactFirst" type="text" name="altContactFirst" />
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="Partner_AltContactLast">Alt last name</label>
+                                <input id="Partner_AltContactLast" class="form-control text-capitalize"
+                                    [value]="Partner.AltContactLast" type="text" name="altContactLast" />
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-            <!-- --------------------- COMMUNICATION PREFERENCES ----------- -->
-        <!-- <div id="communication-preferences">
+
+
+            <!-- show this row if it's a Company -->
+            <div *ngIf="!Partner.IsIndividual" id="company-row1" class="col-md-8">
+                <div class="form-group mb-3">
+                    <label for="Partner_CompanyName">CompanyName <span style="color: red;">*</span></label>
+                    <input id="Partner_CompanyName" class="form-control" [value]="Partner.CompanyName" type="text"
+                        name="companyName" maxlength="Partner.PartnerConsts.MaxCompanyNameLength"
+                        minlength="Partner.PartnerConsts.MinCompanyNameLength" />
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div>
+                    <div class="form-group mb-3">
+                        <label for="Partner_Comments">Comments</label>
+                        <textarea id="Partner_Comments" class="form-control" name="comments"
+                            rows="3">{{Partner.Comments}}</textarea>
+                    </div>
+                </div>
+                <div class="row m-3" style="flex-direction:column; align-items:flex-start;">
+                    <div class="checkbox-list mb-2">
+                        <label for="Partner_ReceiveProduct" class="checkbox">
+                            <input id="Partner_ReceiveProduct" type="checkbox" name="receiveProduct"
+                                [checked]="Partner.ReceiveProduct" />
+                             ReceiveProduct
+                            <span></span>
+                        </label>
+                    </div>
+                    <div class="checkbox-list mb-2">
+                        <label for="Partner_DoNotContact" class="checkbox">
+                            <input id="Partner_DoNotContact" type="checkbox" name="doNotContact"
+                                [checked]="Partner.DoNotContact" />
+                             DoNotContact
+                            <span></span>
+                        </label>
+                    </div>
+                    <div class="checkbox-list mb-2">
+                        <label for="Partner_DoNotMerge" class="checkbox">
+                            <input id="Partner_DoNotMerge" type="checkbox" name="doNotMerge"
+                                [checked]="Partner.DoNotMerge" />
+                             DoNotMerge
+                            <span></span>
+                        </label>
+                    </div>
+                    <div id="individual-deceased-chkbox" class="checkbox-list">
+                        <label for="Partner_Deceased" class="checkbox">
+                            <input id="Partner_Deceased" type="checkbox" name="deceased" [checked]="Partner.Deceased" />
+                            Deceased
+                            <span></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!----------------------- CONTACT INFORMATION ------------------->
+<div id="contact-information">
+    <!-- <div class="card-title border-bottom mt-6"><h3 style="padding: 1rem;background-color: rgba(235,237,243,0.5);">Contact Information</h3></div> -->
+    <div>
+        <div class="row mb-3">
+            <div class="form-group mb-0 col-md-4">
+                <label for="Partner_Phone">Phone</label>
+                <input class="form-control" id="Partner_Phone" [value]="Partner.Phone" type="text" name="phone"
+                    maxlength="Partner.PartnerConsts.MaxPhoneLength" minlength="Partner.PartnerConsts.MinPhoneLength" />
+            </div>
+            <div class="form-group mb-0 col-md-4">
+                <label for="Partner_AltPhone">AltPhone</label>
+                <input class="form-control" id="Partner_Phone" [value]="Partner.AltPhone" type="text" name="altphone"
+                    maxlength="Partner.PartnerConsts.MaxPhoneLength" minlength="Partner.PartnerConsts.MinPhoneLength" />
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="form-group mb-0 col-md-8">
+                <label for="Partner_Email">Email</label>
+                <input class="form-control" id="Partner_Email" [value]="Partner.Email" type="text" name="email"
+                    maxlength="Partner.PartnerConsts.MaxEmailLength" minlength="Partner.PartnerConsts.MinEmailLength"
+                    pattern="^$|Partner.PartnerConsts.EmailRegex" />
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="form-group mb-0 col-md-4">
+                <label for="Partner_City">City</label>
+                <input class="form-control" id="Partner_City" [value]="Partner.City" type="text" name="city"
+                    maxlength="Partner.PartnerConsts.MaxCityLength" minlength="Partner.PartnerConsts.MinCityLength" />
+            </div>
+            <div class="form-group mb-0 col-md-3">
+                <label for="Partner_State">State</label>
+                <input class="form-control" id="Partner_State" [value]="Partner.State" type="text" name="state"
+                    maxlength="Partner.PartnerConsts.MaxStateLength" minlength="Partner.PartnerConsts.MinStateLength" />
+            </div>
+            <div class="form-group mb-0 col-md-2">
+                <label for="Partner_Zip">Zip</label>
+                <input id="Partner_Zip" class="form-control" [value]="Partner.Zip" type="text" name="zip"
+                    maxlength="Partner.PartnerConsts.MaxZipLength" minlength="Partner.PartnerConsts.MinZipLength" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label for="Partner_Country">Country</label>
+                <div class="input-group">
+                    <select asp-for="Partner.Country" class="custom-select" id="Partner_Country" name="country"
+                        onchange="getWaysToWatch();">
+                    </select>
+                    <!-- asp-items="@(new SelectList(countryOptions, "Country.Code", "Country.Name)" -->
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="form-group col-md-6 mb-3">
+                <label for="Partner_Address1">Address1</label>
+                <input class="form-control" id="Partner_Address1" [value]="Partner.Address1" type="text" name="address1"
+                    maxlength="Partner.PartnerConsts.MaxAddress1Length"
+                    minlength="Partner.PartnerConsts.MinAddress1Length" />
+                <label for="Partner_Address2">Address2</label>
+                <input class="form-control" id="Partner_Address2" [value]="Partner.Address2" type="text" name="address2"
+                    maxlength="Partner.PartnerConsts.MaxAddress2Length"
+                    minlength="Partner.PartnerConsts.MinAddress2Length" />
+                <label for="Partner_Address3">Address3</label>
+                <input class="form-control" id="Partner_Address3" [value]="Partner.Address3" type="text" name="address3"
+                    maxlength="Partner.PartnerConsts.MaxAddress3Length"
+                    minlength="Partner.PartnerConsts.MinAddress3Length" />
+                <label for="Partner_Address4">Address4</label>
+                <input class="form-control" id="Partner_Address4" [value]="Partner.Address4" type="text" name="address4"
+                    maxlength="Partner.PartnerConsts.MaxAddress4Length"
+                    minlength="Partner.PartnerConsts.MinAddress4Length" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6 mb-3">
+                <label class="watchingOn" for="Partner_WatchingOn">WatchingOn <span style="color: red;">*</span></label>
+                <div class="input-group countryResults">
+                    <select asp-for="Partner.WatchingOn" class="custom-select" id="Partner_WatchingOn"
+                        name="watchingOn">
+                        <option value="">Select one...</option>
+                        <!-- asp-items="@(new SelectList(watchingOptions, "WatchingOption.InternalId", "WatchingOption.Description)" -->
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- --------------------- COMMUNICATION PREFERENCES ----------- -->
+<!-- <div id="communication-preferences">
             <div class="card-title border-bottom mt-6"><h3 style="padding: 1rem;background-color: rgba(235,237,243,0.5);">Communication Preferences</h3></div>
             <div class="row mb-6" style="flex-direction:column; align-items:flex-start">
                 <div class="checkbox-list ml-4">
@@ -250,8 +291,8 @@
             </div>
         </div> -->
 
-            <!------------------------DOCUMENT PREFERENCES ------------------>
-        <!-- <div id="document-preferences">
+<!------------------------DOCUMENT PREFERENCES ------------------>
+<!-- <div id="document-preferences">
             <div class="card-title border-bottom mt-6"><h3 style="padding: 1rem;background-color: rgba(235,237,243,0.5);">Document Preferences</h3></div>
             <div class="row">
                 <div class="col-sm-2 mb-3">
